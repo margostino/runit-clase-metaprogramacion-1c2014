@@ -1,0 +1,51 @@
+BONUS:
+
+Escenarios:
+
+* Se podrían agregar parámetros a los tests: Se podría hacer algo como:
+
+class TestSuma
+  def parametros
+    [ [1, 2, 3], [5, 8, 13], [9, 1, 10] ]
+  end
+
+  def param_test_suma(x, y, expected)
+    assert_equals(expected, x + y)
+  end
+
+end
+
+Eso tendría el chiche de cambiar la forma de invocar a los tests: no solo por que hay que invocar el tests con parámetros sino que hay que elegir el tipo de test según la convención).
+
+* O se podría cambiar el anterior para que nos ahorre el assert:
+
+class TestSuma
+  def parametros
+    [ [1, 2, 3], [5, 8, 13], [9, 1, 10] ]
+  end
+
+  def param_test_suma(x, y)
+    x + y
+  end
+
+end
+
+y el framework se encarga de hacer el assert, siendo el último valor el esperado (o podríamos hacer un mapa y definir el esperado en otra key o podría definirse los parámetros de otra forma más piola).
+
+* Se podría hacer las Theory que tiene JUnit y hacer algo parecido:
+
+class TestSuma
+  def parametros
+    Array(1..100)
+  end
+
+  def theory_conmutatividad_suma(x, y)
+    assert_equals(y + x, x + y)
+  end
+
+  def theory_conmutatividad_multiplicacion(x, y)
+    assert_equals(y * x, x * y)
+  end
+end
+
+y que dado el array de datos le pase todas las combinaciones posibles a los métodos de tests.
